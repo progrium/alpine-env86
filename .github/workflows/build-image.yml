@@ -30,4 +30,5 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           tag: "v0"
+          allowUpdates: true
           artifacts: "alpine.tgz"

@@ -27,8 +27,6 @@ jobs:
 
       - name: Test env86
         run: |
-          pwd
-          echo $(pwd)
-          echo $PWD
+          ls
           docker pull progrium/env86
-          docker run --privileged -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:/host progrium/env86 sh -c "ls -la /host" 
+          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /host && ls -la /host" 

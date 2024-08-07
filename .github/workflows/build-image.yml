@@ -28,5 +28,7 @@ jobs:
       - name: Test env86
         run: |
           ls
+          mkdir ./image
           docker pull progrium/env86
-          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /mnt && env86 create --from-docker=/mnt/Dockerfile ./image" 
+          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /mnt && env86 create --from-docker=/mnt/Dockerfile ./image && tar -cf - ./image" | tar -xf - -C ./image
+          ls -la ./image

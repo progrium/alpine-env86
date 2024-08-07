@@ -19,13 +19,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: /work
 
       - name: Test env86
         run: |
-          cd /work && ls -la
-          env86 create --from-docker=/work/Dockerfile ./image
+          ls -la
+          env86 create --from-docker=./Dockerfile ./image
           ls -la ./image
 
       - name: Upload artifact

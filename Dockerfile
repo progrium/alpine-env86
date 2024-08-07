@@ -20,6 +20,7 @@ else \
     apk add linux-$KERNEL; \
 fi
 
+
 # Adding networking.sh script (works only on lts kernel yet)
 RUN if [ "$KERNEL" == "lts" ]; then \ 
     echo -e "echo '127.0.0.1 localhost' >> /etc/hosts && rmmod ne2k-pci && modprobe ne2k-pci\nhwclock -s\nsetup-interfaces -a -r" > /root/networking.sh && \ 

@@ -27,6 +27,5 @@ jobs:
 
       - name: Test env86
         run: |
-          ls
           docker pull progrium/env86
-          docker run --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 env86 -h
+          docker run --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 env86 create --from-docker=./Dockerfile ./image

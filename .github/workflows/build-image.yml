@@ -15,22 +15,17 @@ jobs:
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock:ro
     container:
-      image: ubuntu:latest
+      image: progrium/env86:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install Docker
-        run: |
-          apt-get update
-          apt-get install -y docker.io          
+        with:
+          path: /work
 
       - name: Test env86
         run: |
-          ls
-          mkdir ./image
-          docker pull progrium/env86
-          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /mnt && env86 create --from-docker=/mnt/Dockerfile ./image && tar -cf - ./image" | tar -xf - -C .
+          cd /work && ls -la
+          env86 create --from-docker=/work/Dockerfile ./image
           ls -la ./image
 
       - name: Upload artifact

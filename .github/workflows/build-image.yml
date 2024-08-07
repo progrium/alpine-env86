@@ -8,6 +8,8 @@ on:
 jobs:
   build-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     services:
       docker:
         image: docker:dind
@@ -22,12 +24,9 @@ jobs:
 
       - name: Test env86
         run: |
-          ls -la
           env86 create --from-docker=./Dockerfile ./image
-          ls -la ./image
+          tar -czf alpine.tgz -C image .
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - uses: ncipollo/release-action@v1
         with:
-          name: image
-          path: image
+          artifacts: "alpine.tgz"

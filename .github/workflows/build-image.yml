@@ -29,4 +29,4 @@ jobs:
         run: |
           ls
           docker pull progrium/env86
-          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /host && ls -la /host" 
+          tar -cf - . | docker run -i --privileged -v /var/run/docker.sock:/var/run/docker.sock progrium/env86 sh -c "tar -xf - -C /mnt && ls -la /mnt" 

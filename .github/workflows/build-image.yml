@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  push_container:
+  build-image:
     runs-on: ubuntu-latest
     services:
       docker:
@@ -25,9 +25,7 @@ jobs:
           apt-get update
           apt-get install -y docker.io          
 
-      - name: Test Docker
+      - name: Test env86
         run: |
-          docker version
-          docker info   
           docker pull progrium/env86
-          docker run -it --rm progrium/env86 env86 -h
+          docker run progrium/env86 env86 -h

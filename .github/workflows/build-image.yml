@@ -1,4 +1,4 @@
-name: Build Image?
+name: Build Image
 
 on:
   push:
@@ -22,13 +22,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test env86
+      - name: Create image
         run: |
           env86 create --from-docker=./Dockerfile ./image
-          tar -czf alpine.tgz -C image .
+          env86 boot --cdp --cold --ttyS0 --save --no-console --exit-on="localhost:~#" ./image
+          tar -czf alpine-3.18.tgz -C image .
 
       - uses: ncipollo/release-action@v1
         with:
-          tag: "v0"
+          tag: "3.18"
           allowUpdates: true
-          artifacts: "alpine.tgz"
+          artifacts: "alpine-3.18.tgz"

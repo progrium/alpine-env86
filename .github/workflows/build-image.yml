@@ -18,6 +18,7 @@ jobs:
           - /var/run/docker.sock:/var/run/docker.sock:ro
     container:
       image: progrium/env86:latest
+      options: -t
     steps:
       - name: Checkout
         uses: actions/checkout@v4

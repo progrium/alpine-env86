@@ -5,6 +5,12 @@ on:
     branches: 
       - main
 
+defaults:
+  run:
+    # GitHub Actions run without a TTY device. This is a workaround to get one,
+    # based on https://github.com/actions/runner/issues/241#issuecomment-2019042651
+    shell: 'script --return --quiet --log-out /dev/null --command "bash -e {0}"'
+
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -18,7 +24,6 @@ jobs:
           - /var/run/docker.sock:/var/run/docker.sock:ro
     container:
       image: progrium/env86:latest
-      options: -t
     steps:
       - name: Checkout
         uses: actions/checkout@v4
